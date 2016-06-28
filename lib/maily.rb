@@ -32,7 +32,7 @@ module Maily
     
     def path_to_klass(str)
       parts = str.split('/')
-      range = ((arr.index('mailers') + 1)..-1)
+      range = ((parts.index('mailers') + 1)..-1)
       
       name = parts[range].join('/').camelize
       klass_name = File.basename(name, '.rb')
