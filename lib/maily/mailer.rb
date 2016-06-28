@@ -16,7 +16,7 @@ module Maily
     end
 
     def self.find(mailer_name)
-      all.find { |mailer| mailer.name == mailer_name }
+      all.find { |mailer| mailer.name.to_s == mailer_name.to_s }
     end
 
     def self.build_emails(methods, mailer)
@@ -31,7 +31,7 @@ module Maily
     end
 
     def find_email(email_name)
-      emails.find { |email| email.name == email_name.to_s }
+      emails.find { |email| email.name.to_s == email_name.to_s }
     end
   end
 end
