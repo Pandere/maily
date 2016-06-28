@@ -20,14 +20,23 @@ module Maily
     def load_emails_and_hooks
       # Load emails from file system
       Dir[Rails.root.join('**/*_mailer.rb').to_s].each do |mailer|
-        klass   = File.basename(mailer, '.rb')
-        methods = klass.camelize.constantize.send(:instance_methods, false)
+        klass = path_to_klass(mailer)
+        methods = klass.send(:instance_methods, false)
         Maily::Mailer.new(klass, methods)
       end
 
       # Load hooks
       hooks_file_path = "#{Rails.root}/lib/maily_hooks.rb"
       require hooks_file_path if File.exist?(hooks_file_path)
+    end
+    
+    def path_to_klass(str)
+      parts = str.split('/')
+      range = ((arr.index('mailers') + 1)..-1)
+      
+      name = parts[range].join('/').camelize
+      klass_name = File.basename(name, '.rb')
+      klass_name.camelize.constantize
     end
 
     def hooks_for(mailer_name)
