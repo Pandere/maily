@@ -4,9 +4,9 @@ module Maily
 
     def initialize(name, mailer)
       self.name          = name.to_s
-      self.mailer        = mailer
+      self.mailer        = mailer.to_s
       self.arguments     = nil
-      self.template_path = mailer
+      self.template_path = mailer.to_s
     end
 
     def parameters
